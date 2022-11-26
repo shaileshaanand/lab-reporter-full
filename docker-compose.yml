@@ -27,7 +27,18 @@ services:
       - ./backend:/src
       - node_modules_be:/src/node_modules
     command: sh -c "npm start"
-    env_file: backend/.env.docker
+    environment:
+      - MONGO_URI=mongodb://lab_reporter:lab_reporter1234@db:27017/lab_reporter_dev
+      - MONGO_TEST_URI=mongodb://lab_reporter:lab_reporter1234@db:27017/lab_reporter_test
+      - PORT=3000
+      - JWT_SECRET=lab_reporter1234
+      - GOOGLE_OAUTH_CLIENT_ID
+      - GOOGLE_OAUTH_CLIENT_SECRET
+      - GOOGLE_DRIVE_TEMPLATES_FOLDER_ID
+      - GOOGLE_DRIVE_DELETED_TEMPLATES_FOLDER_ID
+      - GOOGLE_DRIVE_REPORTS_FOLDER_ID
+      - GOOGLE_DRIVE_DELETED_REPORTS_FOLDER_ID
+      - BASE_URL=http://localhost:3000
     depends_on:
       - db
 
